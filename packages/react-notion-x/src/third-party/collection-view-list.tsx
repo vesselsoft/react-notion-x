@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { PageBlock } from 'notion-types'
 
+import { PageIcon } from '../components/page-icon'
 import { useNotionContext } from '../context'
 import { CollectionViewProps } from '../types'
 import { CollectionGroup } from './collection-group'
@@ -64,12 +65,19 @@ function List({ blockIds, collection, collectionView }) {
                 key={blockId}
               >
                 <div className='notion-list-item-title'>
-                  <Property
-                    schema={titleSchema}
-                    data={titleData}
-                    block={block}
-                    collection={collection}
-                  />
+                  <div className='notion-page-title'>
+                    <PageIcon
+                      block={block}
+                      className='notion-page-title-icon'
+                    />
+                    <Property
+                      schema={titleSchema}
+                      data={titleData}
+                      block={block}
+                      collection={collection}
+                      linkToTitlePage={false}
+                    />
+                  </div>
                 </div>
 
                 <div className='notion-list-item-body'>
