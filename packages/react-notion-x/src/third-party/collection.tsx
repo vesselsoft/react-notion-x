@@ -174,6 +174,7 @@ const CollectionViewBlock: React.FC<{
     return null
   }
 
+  const hideTitle = collectionView?.format?.hide_linked_collection_name
   const title = getTextContent(collection.name).trim()
   if (collection.icon) {
     block.format = {
@@ -194,19 +195,21 @@ const CollectionViewBlock: React.FC<{
             />
           )}
         </div>
-        <div className='notion-collection-header'>
-          {/*TODO: only show if no full DB*/}
-          {title && (
-            <div className='notion-collection-header-title'>
-              <PageIcon
-                block={block}
-                className='notion-page-title-icon'
-                hideDefaultIcon
-              />
-              {title}
-            </div>
-          )}
-        </div>
+        {!hideTitle && (
+          <div className='notion-collection-header'>
+            {/*TODO: only show if no full DB*/}
+            {title && (
+              <div className='notion-collection-header-title'>
+                <PageIcon
+                  block={block}
+                  className='notion-page-title-icon'
+                  hideDefaultIcon
+                />
+                {title}
+              </div>
+            )}
+          </div>
+        )}
       </div>
       <div className={cs('notion-collection', className)}>
         <CollectionView
