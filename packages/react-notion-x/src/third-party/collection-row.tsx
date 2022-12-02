@@ -25,12 +25,16 @@ export const CollectionRow: React.FC<{
 
   // filter properties based on visibility
   if (collection.format?.property_visibility) {
-    propertyIds = propertyIds.filter(
-      (id) =>
-        collection.format.property_visibility.find(
-          ({ property }) => property === id
-        )?.visibility !== 'hide'
-    )
+    propertyIds = propertyIds.filter((id) => {
+      const visibility = collection.format.property_visibility.find(
+        ({ property }) => property === id
+      )?.visibility
+      return !(
+        visibility === 'hide' ||
+        ((!visibility || visibility === 'hide_if_empty') &&
+          !block.properties?.[id])
+      )
+    })
   }
 
   // sort properties
